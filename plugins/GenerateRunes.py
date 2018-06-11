@@ -3,7 +3,7 @@ from SWPlugin import SWPlugin
 import logging
 
 logger = logging.getLogger("SWProxy")
-
+pathFile = "./data/"
 
 def parse_login_data(data):
     try:
@@ -75,10 +75,10 @@ def parse_login_data(data):
 
     crafts.sort(key = lambda c: (c['craft_type'], c['craft_item_id']))
 
-    with open(str(wizard['wizard_id']) + ".json", "w") as f:
+    with open(pathFile + str(wizard['wizard_id']) + ".json", "w") as f:
         f.write(json.dumps(data, indent=4))
 
-    with open(str(wizard['wizard_id']) + "-info.csv", "wb") as wizard_file:
+    with open(pathFile + str(wizard['wizard_id']) + "-info.csv", "wb") as wizard_file:
         wizard_fields = ['id','name','crystal','mana','arena']
 
         wizard_headers = {'id': 'Wizard id', 'name': 'Wizard Name', 'crystal': 'Crystals', 'mana': 'Mana',
@@ -151,7 +151,7 @@ def parse_login_data(data):
             rune_id_mapping[rune['rune_id']] = rune_id
             rune_id += 1
 
-    with open(str(wizard['wizard_id']) + "-runes.csv", "wb") as rune_file:
+    with open(pathFile + str(wizard['wizard_id']) + "-runes.csv", "wb") as rune_file:
         rune_fieldnames = ['rune_id','monster_id','rune_set','slot','rune_grade','rune_level','sell_price','pri_eff'
             ,'pre_eff','sub1','sub2','sub3','sub4']
 
@@ -174,7 +174,7 @@ def parse_login_data(data):
             optimizer['runes'].append(optimizer_rune)
             rune_writer.writerow(csv_rune)
 
-        with open(str(wizard['wizard_id']) +"-monsters.csv", "wb") as monster_file:
+        with open(pathFile + str(wizard['wizard_id']) +"-monsters.csv", "wb") as monster_file:
 
             monster_fieldnames = ['id','name','level','grade','attribute','in_storage','hp', 'atk', 'hp', 'def', 'spd',
                                   'crate', 'cdmg', 'res', 'acc']
@@ -225,7 +225,7 @@ def parse_login_data(data):
                 monster_writer.writerows(monster_footer)
 
 
-    with open(str(wizard['wizard_id']) +"-optimizer.json", "w") as f:
+    with open(pathFile + str(wizard['wizard_id']) +"-optimizer.json", "w") as f:
         f.write(json.dumps(optimizer))
 
 
