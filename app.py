@@ -2,16 +2,14 @@
 #-*-coding:UTF-8-*-
 
 from flask import Flask
+from flask import send_from_directory
 from flask import render_template
-from flask import request
-from flask import redirect
+import multiprocessing
+
 from flask_bootstrap import Bootstrap
 from flask_bootstrap import WebCDN
-from wtforms import Form, TextField, validators
-from random import randint
-import csv
-import re
-
+from SWProxy import SWProxyStart
+from os import listdir
 
 
 app = Flask(__name__)
@@ -19,19 +17,37 @@ bootstrap = Bootstrap(app)
 app.extensions['bootstrap']['cdns']['bootstrap'] = WebCDN('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/')
 
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    dloads_dir = 'data'
+    dloads = listdir(dloads_dir)
+    dloads_src = ['/download/{}'.format(i) for i in dloads]
+    return render_template('index.html', title='Welcome SWProxy Web App', dloads=dloads, dloads_src=dloads_src, ip=ip, port=port)
 
-class ReusableForm(Form):
-    name = TextField('Name:', validators=[validators.required()])
 
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html', title='About')
+
+
+@app.route('/download/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    download = 'data'
+    return send_from_directory(directory=download, filename=filename, as_attachment=True)
 
 
 @app.errorhandler(404)
 @app.errorhandler(500)
 def page_not_found(e):
-    form = ReusableForm(request.form)
-    return render_template('404.html', title='404 Not found',form=form), 404
+    return render_template('404.html', title='404 Not found'), 404
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080)
+
+    port = 8080
+    ip = '192.168.1.21'
+    log = 'INFO'
+    SWProxy = multiprocessing.Process(target=SWProxyStart, args=(ip, port, log))
+    SWProxy.start()
+    app.run(host="0.0.0.0", port=80)
 
