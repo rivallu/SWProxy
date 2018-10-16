@@ -2,6 +2,7 @@
 *.csv
 *.json
 *.sh
+.idea/
 *.pcap
 *.pyc
 smon_decryptor.py
