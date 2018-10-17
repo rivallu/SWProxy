@@ -1,0 +1,33 @@
+{% include ('nav.html') %}
+
+{% block content %}
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">{{title}}</h1>
+        {% if status == 'sucess' %}
+        <p class="lead">For use SWProxy set up  this <em class="text-success">http://{{ip}}:{{port}}</em> as your proxy server on your smartphone/tablet.</p>
+        <p class="lead"> Your files will appear when SWProxy have generate it</p>
+        <img style='width: 40%' src="{{ url_for('static',filename='sticker2.png') }}">
+        <div id="file">
+        <script>
+            function get_file() {
+                var get_files = $.get( "/files", function(data) {
+                    var list = '<ul>';
+                    for (var i = 0; i < data.length; i++) {
+                        list += '<li><a href=' + data[i] + '>' + data[i].split('/')[2] + '</a></li>';
+                    }
+                    list += '</ul>';
+                    document.getElementById('file').innerHTML = list;
+                    setTimeout(function () {
+                        get_file();
+                    }, 5000)
+                });
+            }
+            get_file();
+        </script>
+        </div>
+        {% else %}
+         <p class="lead">SWProxy can't start caused by an error go to <a href="/">home</a> or contact someone.</p>
+        {% endif %}
+      </main>
+{% include ('footer.html') %}
+{% endblock %}

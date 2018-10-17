@@ -5,11 +5,10 @@
     <main role="main" class="inner cover">
         <h1 class="cover-heading">{{title}}</h1>
         <p class="lead"></p>
-             I start this project just for learn Flask. I'm not a pro dev so if you have a comment send me to sw [at] rivallu [dot] io or in <a class="text-primary" href="https://github.com/rivallu/SWProxy">github</a>.
-      </main>
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>Based on  <a href="https://github.com/kakaroto/SWProxy">SWProxy</a> Create by KaKaRoTo.</p>
+             I start this project just for learn Flask. I'm not a pro dev so if you have a comment send me to sw [at] rivallu [dot] io or on <a class="text-primary" href="https://github.com/rivallu/SWProxy">github</a>.
+        <div>
+            <img style='width: 40%' src="{{ url_for('static',filename='sticker.png') }}">
         </div>
-      </footer>
+      </main>
+{% include ('footer.html') %}
 {% endblock %}
