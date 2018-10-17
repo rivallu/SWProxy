@@ -1,0 +1,14 @@
+{% include ('nav.html') %}
+
+{% block content %}
+
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">{{title}}</h1>
+        <p class="lead"></p>
+             I start this project just for learn Flask. I'm not a pro dev so if you have a comment send me to sw [at] rivallu [dot] io or on <a class="text-primary" href="https://github.com/rivallu/SWProxy">github</a>.
+        <div>
+            <img style='width: 40%' src="{{ url_for('static',filename='sticker.png') }}">
+        </div>
+      </main>
+{% include ('footer.html') %}
+{% endblock %}

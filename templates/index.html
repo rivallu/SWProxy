@@ -1,0 +1,13 @@
+{% include ('nav.html') %}
+
+{% block content %}
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">{{title}}</h1>
+        <p class="lead">Welcome to SWProxy Web App, for run SWProxy press start.</p>
+        <br>
+        <img style='width: 40%' src="{{ url_for('static',filename='sticker4.png') }}">
+        <br>
+        <a href="/start" class="btn btn-lg btn-secondary">Start</a>
+      </main>
+{% include ('footer.html') %}
+{% endblock %}

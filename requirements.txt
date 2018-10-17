@@ -1,3 +1,8 @@
 pycrypto 
 dpkt 
 yapsy
+flask
+flask-bootstrap
+flask-nav
+wtforms
+netifaces

@@ -221,13 +221,27 @@ def parse_pcap(filename):
             elif (tcp.flags & dpkt.tcp.TH_FIN) != 0:
                 del streams[tupl]
 
+class Option(object):
+    port = 80
+    ip = ""
+    no_gui = False
+    debug = "DEBUG"
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='SWParser')
-    parser.add_argument('-d', '--debug', action="store_true", default=False)
-    parser.add_argument('-g', '--no-gui', action="store_true", default=False)
-    parser.add_argument('-p', '--port', type=int, default=8080)
-    options, unknown_args = parser.parse_known_args()
+    def __init__(self, port, ip, no_gui, debug):
+        self.port= port
+        self.ip= ip
+        self. debug= debug
+        self.no_gui= no_gui
+
+def SWProxyStart(ip, port, log):
+    # parser = argparse.ArgumentParser(description='SWParser')
+    # parser.add_argument('-d', '--debug', action="store_true", default=False)
+    # parser.add_argument('-g', '--no-gui', action="store_true", default=False)
+    # parser.add_argument('-p', '--port', type=int, default=8080)
+    # options, unknown_args = parser.parse_known_args()
+    unknown_args = ''
+
+    options = Option(ip=ip, port=port, debug=log, no_gui=True)
 
     # Set up logger
     level = "DEBUG" if options.debug else "INFO"
@@ -275,7 +289,7 @@ if __name__ == "__main__":
             app_icon.addFile(icons_path + '48x48.png', QSize(48,48))
             app_icon.addFile(icons_path + '256x256.png', QSize(256,256))
             app.setWindowIcon(app_icon)
-            win = gui.MainWindow(get_external_ip(), options.port)
+            win = gui.MainWindow(options.ip, options.port)
             logger.addHandler(gui.GuiLogHandler(win))
             win.show()
             sys.exit(app.exec_())
