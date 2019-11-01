@@ -1,5 +1,7 @@
 # Summoners War Monsters & Runes Parser
 
+[![GuardRails badge](https://badges.production.guardrails.io/rivallu/SWProxy.svg)](https://www.guardrails.io)
+
 This tool will parse data captured from the initial Summoners War login data and extract information on the monsters and runes of the user.
 
 This tool was created with a single purpose: Exporting the runes so it can be used with external tools, such as the Rune Optimizer by Redeemer40 available here : http://swrunes.all.my/
